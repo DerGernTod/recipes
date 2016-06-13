@@ -1,0 +1,23 @@
+{
+  "name": "recipes",
+  "version": "1.0.0",
+  "description": "A collection of recipes",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DerGernTod/recipes.git"
+  },
+  "keywords": [
+    "recipes",
+    "cooking"
+  ],
+  "author": "Gernot Raudner",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/DerGernTod/recipes/issues"
+  },
+  "homepage": "https://github.com/DerGernTod/recipes#readme"
+}
