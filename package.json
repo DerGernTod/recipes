@@ -8,7 +8,9 @@
     "lite": "lite-server"
   },
   "dependencies": {
+    "body-parser": "^1.15.2",
     "bootstrap": "^3.3.6",
+    "express": "^4.14.0",
     "react": "^15.1.0",
     "reflect-metadata": "0.1.3",
     "rxjs": "5.0.0-beta.6",

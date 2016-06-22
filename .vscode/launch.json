@@ -3,9 +3,9 @@
     "configurations": [
         {
             "name": "Starten",
-            "type": "npm",
+            "type": "node",
             "request": "launch",
-            "program": "${workspaceRoot}/index.js",
+            "program": "${workspaceRoot}/gulpfile.js",
             "stopOnEntry": false,
             "args": [],
             "cwd": "${workspaceRoot}",
