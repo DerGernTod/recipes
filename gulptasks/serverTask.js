@@ -1,6 +1,7 @@
 const express = require('express');
 const fs = require('fs');
 const bodyParser = require('body-parser');
+const couch = require('./couch');
 function serverTask(){
     var app = express();
     app.use(express.static('public'));
@@ -11,26 +12,21 @@ function serverTask(){
     });
     function comments(req, res){
         var comment = req.body;
-
-        fs.readFile("api/comments.json", "utf8", function fileCallback(error, data){
-            if(comment.author){
-                var oldData = data;
-                var parsedData = JSON.parse(data);
-                parsedData.push(comment);
-                var newData = JSON.stringify(parsedData);
-                
-                fs.writeFile("api/comments.json", newData, (err) => {
-                    if(err){
-                        res.send(oldData);
-                    }else{
-                        res.send(newData);
-                    }
-                });
-            }else{
-                res.send(data);
-            }
-            
-        });
+        if(comment.author){
+            couch.addComment(comment, function addCommentCallback(err, doc){
+                if(err){
+                    console.error(err);
+                }else{
+                    req.body = "";
+                    console.log("added comment: " + JSON.stringify(doc));
+                }
+                comments(req, res);
+            });
+        }else{
+            couch.getComments(function commentsCallback(comments){
+                res.send(JSON.stringify(comments));
+            });
+        }
     }
     app.post('/api/comments', comments);
     app.get('/api/comments', comments);
