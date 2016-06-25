@@ -32,8 +32,8 @@ function serverTask(){
     app.get('/api/comments', comments);
 
 
-    app.listen(3000, function listen(){
-        console.log('Example app listening on port 3000!');
+    app.listen(55555, function listen(){
+        console.log('Example app listening on port 55555!');
     });
 }
 

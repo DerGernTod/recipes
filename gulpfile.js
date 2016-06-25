@@ -69,7 +69,7 @@ gulp.task('dev', ['default', 'couchdb'], function(){
     gulp.watch(['src/img/**/*'], ['images', browserSync.reload]);
     
     browserSync.init(null, {
-        proxy: "http://localhost:3000"
+        proxy: "http://localhost:55555"
     });
     gulp.start('server');
 });
