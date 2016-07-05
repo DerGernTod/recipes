@@ -6,7 +6,7 @@ function serverTask(){
     var app = express();
     app.use(express.static('public'));
     app.use(bodyParser.json());
-    app.use(bodyParser.urlencoded());
+    app.use(bodyParser.urlencoded({extended:'qs'}));
     app.get('/', function handleRoot(req, res){
         res.send('Hello World!');
     });

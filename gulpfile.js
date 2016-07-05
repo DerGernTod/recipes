@@ -46,9 +46,13 @@ gulp.task('less', function(){
         .pipe(browserSync.reload({ stream: true }));
 });
 
+
+
 gulp.task('scripts', function(){
     return gulp.src([
-        'src/scripts/comment/*.js',
+        'src/scripts/pages/*.js',
+        'src/scripts/NavBar.js',
+        'src/scripts/Container.js',
         'src/scripts/BuildPage.js'
     ])
         .pipe(concat('scripts.min.js'))
