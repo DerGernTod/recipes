@@ -67,7 +67,7 @@ gulp.task('html', function() {
 });
 
 gulp.task('dev', ['default', 'couchdb'], function(){
-    gulp.watch(['scripts/**/*'], ['scripts', browserSync.reload]);
+    gulp.watch(['src/scripts/**/*'], ['scripts', browserSync.reload]);
     gulp.watch(['src/**/*.html'], ['html', browserSync.reload]);
     gulp.watch(['src/less/**/*'], ['less']);
     gulp.watch(['src/img/**/*'], ['images', browserSync.reload]);

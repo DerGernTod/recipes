@@ -10,6 +10,8 @@ var routes = (
             <Route name="list" path="/list" component={RecipeListPage}/>
             <Route name="random" path="/random" component={RandomRecipePage}/>
             <Route name="search" path="/search" component={IngredientSearchPage}/>
+            <Route name="recipe" path="/recipe/:recipeId" component={RecipePage}/>
+            <Route name="notfount" path="*" component={NotFoundPage} />
         </Route>
     </Router>
 );
