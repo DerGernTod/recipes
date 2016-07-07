@@ -51,9 +51,8 @@ gulp.task('less', function(){
 gulp.task('scripts', function(){
     return gulp.src([
         'src/scripts/pages/*.js',
-        'src/scripts/NavBar.js',
-        'src/scripts/Container.js',
-        'src/scripts/BuildPage.js'
+        'src/scripts/components/*.js',
+        'src/scripts/App.js'
     ])
         .pipe(concat('scripts.min.js'))
         .pipe(gulp.dest('public/js'))

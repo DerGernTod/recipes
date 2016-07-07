@@ -1,1 +1,28 @@
 @import "../../node_modules/bootstrap/less/bootstrap.less"; 
+.recipeGridPreview{
+    border: 1px solid lightgray;
+    border-collapse: collapse;
+    padding: 0.5em;
+    box-sizing: border-box;
+    h3{
+        margin: 0;
+        padding: .1em;
+        width: 66%;
+        float: right;
+        overflow: hidden;
+    }
+    p{
+        clear: both;
+    }
+    transition: 500ms all linear;
+    &:hover{
+        background-color: #f0f0f0;
+        border: 1px solid black;
+        transition: 100ms all linear;
+    }
+    
+    @media (max-width: 767px){
+        height: 20em;    
+    }
+    height: 15em;
+}
