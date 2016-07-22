@@ -28,7 +28,14 @@ function serverTask(){
             });
         }
     }
+    function adminLogin(req, res){
+        var password = req.body.password;
+        
+        res.send({successful: true});
+    }
+
     app.post('/api/comments', comments);
+    app.post('/api/adminlogin', adminLogin);
     app.get('/api/comments', comments);
 
 

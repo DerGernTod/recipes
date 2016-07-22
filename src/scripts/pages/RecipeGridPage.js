@@ -24,11 +24,8 @@ var RecipeGridPage = React.createClass({
             );
         });
         return (
-            <div>
-                <div>hello RecipeGridPage</div>
-                <div className="container">
-                    {recipes}
-                </div>
+            <div className="container">
+                {recipes}
             </div>
         );
     }

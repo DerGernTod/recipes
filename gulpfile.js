@@ -17,7 +17,7 @@ gulp.task('default', ['clean'], function(){
     return gulp.start('build');
 });
 
-gulp.task('build', ['scripts', 'less', 'html', 'images']);
+gulp.task('build', ['scripts', 'libs', 'less', 'html', 'images']);
 
 gulp.task('clean', function(cb){
     del(['public'], { force: true }, cb);
@@ -50,6 +50,8 @@ gulp.task('less', function(){
 
 gulp.task('scripts', function(){
     return gulp.src([
+        'src/scripts/actions/*.js',
+        'src/scripts/stores/*.js',
         'src/scripts/pages/*.js',
         'src/scripts/components/*.js',
         'src/scripts/App.js'
@@ -58,6 +60,15 @@ gulp.task('scripts', function(){
         .pipe(gulp.dest('public/js'))
         .pipe(browserSync.reload({ stream: true }));
 });
+
+gulp.task('libs', function(){
+    return gulp.src([
+        'lib/*.js'
+    ])
+    .pipe(concat('libs.min.js'))
+    .pipe(gulp.dest('public/js'))
+    .pipe(browserSync.reload({ stream: true }));
+})
 
 gulp.task('html', function() {
     return gulp.src(['src/*.html'])

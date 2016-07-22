@@ -4,14 +4,13 @@ var Container = React.createClass({
         return (
             <div>
                 <header>
-                    <div class="logo">
+                    <div className="logo col-xs-12 col-sm-3 col-md-3 col-lg-3">
                         <Link to="/">Logo</Link>
                     </div>
                     <NavBar />
-                    //logo
-                    //navliste
-                    ///navbuttons
-                    //suche
+                    <form className="pull-right  col-xs-12 col-sm-3 col-md-3 col-lg-3">
+                        <input className="pull-right" type="text" placeholder="Suche" />
+                    </form>
                 </header>
                 {this.props.children}
             </div>
