@@ -17,3 +17,28 @@ var Container = React.createClass({
         );
     }
 });
+
+var AdminContainer = ReactRouter.withRouter(React.createClass({
+    mixins : [
+        ReactRouter.State,
+        ReactRouter.Navigation
+    ],
+    logout : function logout(){
+        AuthActions.logout();
+        setTimeout(function(){
+            this.props.router.replace("/login");
+        }.bind(this), 100);
+    },
+    render : function render(){
+        return (
+            <div>
+                <header>
+                    <AdminNavBar />
+                    <div className="btn btn-default" onClick={this.logout} >Logout</div>
+                </header>
+                
+                {this.props.children}
+            </div>
+        );
+    }
+}));

@@ -40,8 +40,9 @@ gulp.task('less', function(){
     return gulp.src(['src/less/**/*.less'])
         .pipe(less())
         .pipe(sourcemaps.init())
-        .pipe(minifyCSS())
-        .pipe(sourcemaps.write())
+        .pipe(minifyCSS())      
+        .pipe(concat('style.css'))
+        .pipe(sourcemaps.write())  
         .pipe(gulp.dest('public/css'))
         .pipe(browserSync.reload({ stream: true }));
 });
@@ -52,7 +53,7 @@ gulp.task('scripts', function(){
     return gulp.src([
         'src/scripts/actions/*.js',
         'src/scripts/stores/*.js',
-        'src/scripts/pages/*.js',
+        'src/scripts/pages/**/*.js',
         'src/scripts/components/*.js',
         'src/scripts/App.js'
     ])

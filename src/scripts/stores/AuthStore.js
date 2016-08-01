@@ -27,7 +27,11 @@ var AuthStore = Reflux.createStore({
         this.loading = true;
         this.changed();
         //TODO: api call
-        AuthActions.login.completed(auths['${user}:${password}']);
+        setTimeout(function loginProxy(){
+            AuthActions.login.completed({
+    "jwt": "DOESNTMATTER.eyJleHAiOi0xLCJpZCI6IjEiLCJuYW1lIjoiR29vbGV5IiwiZW1haWwiOiJnb29sZXlAcHJlYWN0LmNvbSJ9.DOESNTMATTER"
+  });
+        }, 100);
     },
     onLoginCompleted : function onLoginCompleted(authResponse){
         if(authResponse){
