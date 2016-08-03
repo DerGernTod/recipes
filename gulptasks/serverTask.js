@@ -2,8 +2,10 @@ const express = require('express');
 const fs = require('fs');
 const bodyParser = require('body-parser');
 const couch = require('./couch');
+const tags = require('../api/tags');
+var server;
 function serverTask(){
-    var app = express();
+    app = express();
     app.use(express.static('public'));
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({extended:'qs'}));
@@ -34,14 +36,21 @@ function serverTask(){
         res.send({successful: true});
     }
 
+    app.post('/api/addTag', tags.addTag);
+    app.get('/api/latestTags', tags.latestTags);
     app.post('/api/comments', comments);
     app.post('/api/adminlogin', adminLogin);
     app.get('/api/comments', comments);
 
 
-    app.listen(55555, function listen(){
+    server = app.listen(55555, function listen(){
         console.log('Example app listening on port 55555!');
     });
 }
-
-module.exports = serverTask;
+function serverStop(){
+    server && server.close();
+}
+module.exports = {
+    start : serverTask,
+    stop : serverStop
+}

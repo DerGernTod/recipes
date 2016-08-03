@@ -9,9 +9,23 @@ function initDesignDocuments(){
         views: {
             comments: {
                 map: (function (doc) { 
-                    if (doc.doctype === "Comment") { 
+                    if (doc.doctype == "Comment") { 
                         emit(doc.id, doc); 
                     } 
+                }).toString()
+            },
+            tags: {
+                map: (function (doc) {
+                    if (doc.doctype == "Tag"){
+                        emit(doc._id, doc);
+                    }
+                }).toString()
+            },
+            tagsLatest: {
+                map: (function(doc){
+                    if (doc.doctype == "Tag"){
+                        emit(-doc.created, doc);
+                    }
                 }).toString()
             }
         }
@@ -38,6 +52,25 @@ module.exports = {
                     initDesignDocuments();
                 }
             }
+        });
+    },
+    addTag: function addTag(data, callback){
+        db.view('recipes/tags', {key : "tag_" + data.tagName}, (err, doc) => {
+            if(err || doc.length){
+                callback({success : false, message : "Tag '" + data.tagName + "' existiert bereits!"})
+            }else{
+                db.save('tag_' + data.tagName, {
+                    doctype : "Tag",
+                    created : data.timestamp
+                }, (err, res) => {
+                    callback({success : !err, message : err, response : res});
+                });
+            }
+        });
+    },
+    viewTags: function viewTags(callback){
+        db.view('recipes/tagsLatest', {}, (err, doc) => {
+            callback(doc);
         });
     },
     /**

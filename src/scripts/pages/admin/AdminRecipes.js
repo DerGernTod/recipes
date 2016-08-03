@@ -2,20 +2,8 @@ var AdminRecipesPage = React.createClass({
     render : function render(){
         return (
             <div className="adminContainer center-block">
-                
-                <input className="search pull-left form-control" type="text" placeholder="Suche... 🔍" />
-                <Link to="/admin/recipes/id/new" className="btn btn-default pull-right">+</Link>
-                <div className="clearfix"/>
+                <AdminSearch createLink="/admin/recipes/id/new" />
                 {this.props.children}
-            </div>
-        );
-    }
-});
-var AdminRecipePage = React.createClass({
-    render : function render(){
-        return (
-            <div>
-                AdminRecipePage
             </div>
         );
     }
@@ -78,7 +66,7 @@ var AdminRecipesIdPage = React.createClass({
                     
                     //todo: zutatenkomponente
                     <textarea className="form-control" placeholder="Zubereitung"></textarea>
-                    <div class="form-group">
+                    <div className="form-group">
                         <label for="preparationTime">Zubereitungszeit</label>
                         <div className="clearfix form-inline">
                             <input className="form-control" 

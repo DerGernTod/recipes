@@ -36,10 +36,6 @@ var LoginPage = ReactRouter.withRouter(React.createClass({
                 <div className="state-error">{this.state.error}</div>
             );
         }
-        if(this.state.user){
-            console.log("should redirect to admin page, user is ", this.state.user);
-            //setTimeout(this.redirectToAdminPage, 100);
-        }
         return (
             <div>
                 {errorMessage}

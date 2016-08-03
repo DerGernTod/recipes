@@ -12,7 +12,7 @@ const uglify = require('gulp-uglify');
 const sourcemaps = require('gulp-sourcemaps');
 const minifyCSS = require('gulp-minify-css');
 const couch = require("./gulptasks/couch");
-
+const server = require('./gulptasks/serverTask');
 gulp.task('default', ['clean'], function(){
     return gulp.start('build');
 });
@@ -24,7 +24,8 @@ gulp.task('clean', function(cb){
     return gulp.src(['src/**']);
 });
 
-gulp.task('server', require('./gulptasks/serverTask'));
+gulp.task('server', server.start);
+gulp.task('serverStop', server.stop);
 gulp.task('couchdb', function initDb(){
     couch.initDatabase();
 })
@@ -82,6 +83,7 @@ gulp.task('dev', ['default', 'couchdb'], function(){
     gulp.watch(['src/**/*.html'], ['html', browserSync.reload]);
     gulp.watch(['src/less/**/*'], ['less']);
     gulp.watch(['src/img/**/*'], ['images', browserSync.reload]);
+    gulp.watch(['api/**/*'], ['serverStop', 'server']);
     
     browserSync.init(null, {
         proxy: "http://localhost:55555"
