@@ -17,14 +17,14 @@ function initDesignDocuments(){
             tags: {
                 map: (function (doc) {
                     if (doc.doctype == "Tag"){
-                        emit(doc._id, doc);
+                        emit(doc.tagName, doc);
                     }
                 }).toString()
             },
             tagsLatest: {
                 map: (function(doc){
                     if (doc.doctype == "Tag"){
-                        emit(-doc.created, doc);
+                        emit(-(doc.updated || doc.created), doc);
                     }
                 }).toString()
             }
@@ -55,13 +55,14 @@ module.exports = {
         });
     },
     addTag: function addTag(data, callback){
-        db.view('recipes/tags', {key : "tag_" + data.tagName}, (err, doc) => {
+        db.view('recipes/tags', {key : data.tagName}, (err, doc) => {
             if(err || doc.length){
                 callback({success : false, message : "Tag '" + data.tagName + "' existiert bereits!"})
             }else{
-                db.save('tag_' + data.tagName, {
+                db.save({
                     doctype : "Tag",
-                    created : data.timestamp
+                    created : data.timestamp,
+                    tagName : data.tagName
                 }, (err, res) => {
                     callback({success : !err, message : err, response : res});
                 });
@@ -71,6 +72,14 @@ module.exports = {
     viewTags: function viewTags(callback){
         db.view('recipes/tagsLatest', {}, (err, doc) => {
             callback(doc);
+        });
+    },
+    removeTag: function removeTag(data, callback){
+        db.remove(data.tagId, (err, res) => {
+            callback({
+                success : !err,
+                message : err
+            });
         });
     },
     /**

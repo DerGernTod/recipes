@@ -1,15 +1,12 @@
 const couch = require("../gulptasks/couch.js");
 module.exports = {
     addTag : function addTag(req, res){
-        var tagName = req.body.tagName;
-        var time = req.body.timestamp;
-        couch.addTag(req.body, (result) => {
-            res.send(result);
-        });
+        couch.addTag(req.body, data => res.send(data));
     },
     latestTags : function latestTags(req, res){
-        couch.viewTags((result) => {
-            res.send(result);
-        });
+        couch.viewTags(data => res.send(data));
+    },
+    deleteTag : function deleteTag(req, res){
+        couch.removeTag(req.body, data => res.send(data));
     }
 };

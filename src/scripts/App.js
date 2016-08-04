@@ -1,7 +1,7 @@
 var Route = ReactRouter.Route;
 var IndexRoute = ReactRouter.IndexRoute;
 var Link = ReactRouter.Link;
-var hashHistory = ReactRouter.hashHistory;
+var browserHistory = ReactRouter.browserHistory;
 var Router = ReactRouter.Router;
 function requireAuth(nextState, replace){
     if(!AuthStore.loggedIn()){
@@ -13,7 +13,7 @@ function requireAuth(nextState, replace){
 }
 
 var routes = (
-    <Router history={hashHistory}>
+    <Router history={browserHistory}>
         <Route path="/login" component={LoginPage}/>
         <Route path="/admin" component={AdminContainer} onEnter={requireAuth}>
             <IndexRoute component={AdminRecipesPage} />
