@@ -125,9 +125,9 @@ var AdminTagsLatestPage = React.createClass({
             var tag = this.state.tags[i];
             var tagId = tag.id;
             entries.push((
-                <div className="tag" key={tagId} >
+                <div className="tag clearfix" key={tagId} >
                     <span>{tag.value.tagName}</span>
-                    <span className="btn btn-default" onClick={this.deleteTag} data-tag-id={tagId}>x</span>
+                    <span className="btn btn-default pull-right" onClick={this.deleteTag} data-tag-id={tagId}>x</span>
                 </div>
             ));
         }
