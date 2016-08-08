@@ -19,9 +19,10 @@ var LoginPage = ReactRouter.withRouter(React.createClass({
         }
     },
     redirectToAdminPage: function redirectToAdminPage(){
-        this.props.router.replace('/admin');
+        this.props.router.push('/admin');
     },
-    login: function login(){
+    login: function login(e){
+        e.preventDefault();
         console.log("trying to login");
         if(this.refs.username.value == "123" && this.refs.password.value == "456"){
             console.log("login successful");

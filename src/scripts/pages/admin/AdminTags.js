@@ -91,7 +91,11 @@ var AdminTagsSearchPage = React.createClass({
         );
     }
 });
-var AdminTagsLatestPage = React.createClass({
+var AdminTagsLatestPage = ReactRouter.withRouter(React.createClass({
+    mixins : [
+        ReactRouter.State,
+        ReactRouter.Navigation
+    ],
     getInitialState : function getInitialState(){
         return { tags : []};
     },
@@ -119,6 +123,10 @@ var AdminTagsLatestPage = React.createClass({
             }
         });
     },
+    editTag : function editTag(e){
+        var tagIdToDelete = $(e.target).data('tag-id');
+        this.props.router.push('/admin/tags/id/' + tagIdToDelete);
+    },
     render : function render(){
         var entries = [];
         for(var i in this.state.tags){
@@ -126,8 +134,8 @@ var AdminTagsLatestPage = React.createClass({
             var tagId = tag.id;
             entries.push((
                 <div className="tag clearfix" key={tagId} >
-                    <span>{tag.value.tagName}</span>
-                    <span className="btn btn-default pull-right" onClick={this.deleteTag} data-tag-id={tagId}>x</span>
+                    <div className="left" onClick={this.editTag} data-tag-id={tagId}>{tag.value.tagName}</div>
+                    <div className="btn btn-default right" onClick={this.deleteTag} data-tag-id={tagId}>x</div>
                 </div>
             ));
         }
@@ -137,4 +145,4 @@ var AdminTagsLatestPage = React.createClass({
             </div>
         );
     }
-});
+}));
