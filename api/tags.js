@@ -8,5 +8,11 @@ module.exports = {
     },
     deleteTag : function deleteTag(req, res){
         couch.removeTag(req.body, data => res.send(data));
+    },
+    editTag : function editTag(req, res){
+        couch.editTag(req.body, data => res.send(data));
+    },
+    getTag : function getTag(req, res){
+        couch.getTag(req.body, data => res.send(data));
     }
 };

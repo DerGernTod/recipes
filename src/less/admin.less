@@ -6,6 +6,10 @@
     }
 }
 .tag{
+    & input.error{
+        border-color: #b71212;
+        transition: border-color .5s linear; 
+    }
     margin: .2em 0;
     padding: .2em;
     line-height: 2.3em;
@@ -14,15 +18,19 @@
     & .btn{
         width: 2.3em;
     }
-    & div:first-child{
-        width: calc(~'100% - 2.3em');
+    & div.tagText{
+        padding: 0 .9em;
+        overflow: auto;
+    }
+    & div.inputWrapper{
+        overflow: auto;
+        display: none;
     }
     &:hover{
         transition: background-color .1s linear;
         background-color: #efefef;
         &>div{
-            background-color: blue;
-            &:first-child:after{
+            &.tagText:after{
                 content: "✎";
                 transform: scaleX(-1);
                 padding: 0 1em;

@@ -82,6 +82,21 @@ module.exports = {
             });
         });
     },
+    editTag: function editTag(data, callback){
+        db.get(data.tagId, (err, res) => {
+            res.tagName = data.tagName;
+            db.save(data.tagId, res.rev, res,  (err2, res2) => {
+                callback({
+                    success : !(err2 && err),
+                    message : err + ", " + err2
+                });
+            });
+        });
+        
+    },
+    getTag: function getTag(data, callback){
+
+    },
     /**
      * callback {function} takes an array argument which is passed to the callback
      */
