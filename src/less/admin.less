@@ -5,11 +5,37 @@
         width: 80%;
     }
 }
-.tag{
-    & input.error{
-        border-color: #b71212;
-        transition: border-color .5s linear; 
+.tagList{
+    list-style: none;
+    padding: 0;
+}
+.editableDeletable{ 
+    & .text{
+        padding: 0 .9em;
+        overflow: auto;
+        border : 1px solid transparent;
+        border-radius: 6px;
+        &:focus{
+            border: 1px solid #ccc;
+            background-color: white;
+        }
+        transition: background-color .25s linear; 
+        &.error{
+            background-color: #b71212;
+            transition: background-color .25s linear; 
+        }
+        &.success{
+            background-color: #12b712;
+            transition: background-color .25s linear; 
+        }
+        &:hover:not(:focus):after{
+            content: "✎";
+            transform: scaleX(-1);
+            padding: 0 1em;
+            display: inline-block;
+        }
     }
+    
     margin: .2em 0;
     padding: .2em;
     line-height: 2.3em;
@@ -17,26 +43,11 @@
     cursor: text;
     & .btn{
         width: 2.3em;
-    }
-    & div.tagText{
-        padding: 0 .9em;
-        overflow: auto;
-    }
-    & div.inputWrapper{
-        overflow: auto;
-        display: none;
+        margin-left: 1em;
     }
     &:hover{
         transition: background-color .1s linear;
         background-color: #efefef;
-        &>div{
-            &.tagText:after{
-                content: "✎";
-                transform: scaleX(-1);
-                padding: 0 1em;
-                display: inline-block;
-            }
-        }
     }
 }
 .left{

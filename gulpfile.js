@@ -55,7 +55,7 @@ gulp.task('scripts', function(){
         'src/scripts/actions/*.js',
         'src/scripts/stores/*.js',
         'src/scripts/pages/**/*.js',
-        'src/scripts/components/*.js',
+        'src/scripts/components/**/*.js',
         'src/scripts/App.js'
     ])
         .pipe(concat('scripts.min.js'))

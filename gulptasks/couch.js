@@ -75,7 +75,7 @@ module.exports = {
         });
     },
     removeTag: function removeTag(data, callback){
-        db.remove(data.tagId, (err, res) => {
+        db.remove(data.id, (err, res) => {
             callback({
                 success : !err,
                 message : err
@@ -83,13 +83,19 @@ module.exports = {
         });
     },
     editTag: function editTag(data, callback){
-        db.get(data.tagId, (err, res) => {
-            res.tagName = data.tagName;
-            db.save(data.tagId, res.rev, res,  (err2, res2) => {
-                callback({
-                    success : !(err2 && err),
-                    message : err + ", " + err2
-                });
+        db.get(data.id, (err, res) => {
+            db.view('recipes/tags', {key : data.name}, (err, doc) => {
+                if(err || doc.length){
+                    callback({success : false, message : "Tag '" + data.name + "' existiert bereits!"});
+                }else{
+                    res.tagName = data.name;
+                    db.save(data.id, res.rev, res,  (err2, res2) => {
+                        callback({
+                            success : !(err2 && err),
+                            message : err + ", " + err2
+                        });
+                    });
+                }
             });
         });
         

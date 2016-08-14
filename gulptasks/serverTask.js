@@ -37,8 +37,8 @@ function serverTask(){
     app.post('/api/addTag', tags.addTag);
     app.get('/api/getTag', tags.getTag);
     app.post('/api/tags/edit', tags.editTag);
-    app.get('/api/latestTags', tags.latestTags);
-    app.post('/api/deleteTag', tags.deleteTag);
+    app.get('/api/tags/latest', tags.latestTags);
+    app.post('/api/tags/delete', tags.deleteTag);
     app.post('/api/comments', comments);
     app.post('/api/adminlogin', adminLogin);
     app.get('/api/comments', comments);
