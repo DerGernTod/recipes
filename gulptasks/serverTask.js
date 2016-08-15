@@ -34,7 +34,7 @@ function serverTask(){
         res.send({successful: true});
     }
 
-    app.post('/api/addTag', tags.addTag);
+    app.post('/api/tags/add', tags.addTag);
     app.get('/api/getTag', tags.getTag);
     app.post('/api/tags/edit', tags.editTag);
     app.get('/api/tags/latest', tags.latestTags);

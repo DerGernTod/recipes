@@ -13,10 +13,22 @@ var Search = React.createClass({
 
 var AdminSearch = React.createClass({
     render : function render(){
+        var attributeProps = {};
+        if(this.props.createFunction){
+            attributeProps.onClick = this.props.createFunction;
+        }
+        var element;
+        if(this.props.createLink){
+            attributeProps.to = this.props.createLink;
+            element = (<Link {...attributeProps} className="btn btn-default pull-right">+</Link>);
+        }else{
+            element = (<div {...attributeProps} className="btn btn-default pull-right">+</div>);
+        }
+
          return (
             <div>
                 <Search focus={this.props.focus} classNames="search pull-left form-control"/>
-                <Link to={this.props.createLink} className="btn btn-default pull-right">+</Link>
+                {element}
                 <div className="clearfix"/>
             </div>
          );

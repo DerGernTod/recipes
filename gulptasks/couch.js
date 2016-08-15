@@ -55,14 +55,14 @@ module.exports = {
         });
     },
     addTag: function addTag(data, callback){
-        db.view('recipes/tags', {key : data.tagName}, (err, doc) => {
+        db.view('recipes/tags', {key : data.name}, (err, doc) => {
             if(err || doc.length){
-                callback({success : false, message : "Tag '" + data.tagName + "' existiert bereits!"})
+                callback({success : false, message : "Tag '" + data.name + "' existiert bereits!"})
             }else{
                 db.save({
                     doctype : "Tag",
                     created : data.timestamp,
-                    tagName : data.tagName
+                    tagName : data.name
                 }, (err, res) => {
                     callback({success : !err, message : err, response : res});
                 });

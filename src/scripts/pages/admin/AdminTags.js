@@ -2,10 +2,15 @@ var AdminTagsPage = React.createClass({
     componentDidMount : function componentDidMount(){
 
     },
+    addTag : function addTag(){
+        $('.tagList li:first-child div.text').text("");
+        $('.tagList li:first-child').show();
+        $('.tagList li:first-child div.text').focus();
+    },
     render : function render(){
         return (
             <div className="adminContainer center-block">
-                <AdminSearch focus="true" createLink="/admin/tags/id/new" />
+                <AdminSearch focus="true" createFunction={this.addTag} />
                 {this.props.children}
             </div>
         );
@@ -14,49 +19,6 @@ var AdminTagsPage = React.createClass({
 var AdminTagsIdPage = React.createClass({
     componentDidMount : function componentDidMount(){
         $(this.refs.tagNameInput).focus();
-    },
-    onFormSubmit : function onFormSubmit(e){
-        e.preventDefault();
-        
-        var jqueryInput = $(this.refs.tagNameInput);
-        var jqueryButton = $(this.refs.submitButton);
-        if(!jqueryInput.val().trim()){
-            jqueryInput.val("").focus();
-            //todo: message
-            return;
-        }
-        jqueryInput.attr('disabled', 'disabled');
-        jqueryButton.attr('disabled', 'disabled');
-        var data = {
-            tagName : this.refs.tagNameInput.value,
-            timestamp : Date.now()
-        }
-        if(this.timeoutId){
-            cancelTimeout(this.timeoutId);
-        }
-        $.post("/api/addTag", data).complete(xhr => {
-            var xhrResult = xhr.responseJSON;
-            jqueryButton.removeClass('btn-default');
-            if(xhrResult.success){
-                jqueryButton.addClass('btn-success');
-                jqueryButton.val("Fertig!");
-                //cool
-            }else{
-                jqueryButton.addClass('btn-warning');
-                jqueryButton.val(xhrResult.message);
-                //print message (e.message)
-            }
-            jqueryInput.val("");
-            jqueryInput.focus();
-            jqueryInput.removeAttr('disabled');
-            jqueryButton.removeAttr('disabled');
-            this.timeoutId = setTimeout(()=>{
-                jqueryButton.val("Hinzufügen");
-                jqueryButton.removeClass('btn-success');
-                jqueryButton.removeClass('btn-warning');
-                jqueryButton.addClass('btn-default');
-            }, 500);
-        } );
     },
     render : function render(){
         var formData = {};
@@ -116,18 +78,47 @@ var AdminTagsLatestPage = ReactRouter.withRouter(React.createClass({
             }
             this.setState({tags : newObj});
         }).bind(this));
+        $(this.refs.addTagLi).hide();
+    },
+    addComplete : function addComplete(id, name){
+        $(this.refs.addTagLi).hide();
+        if(!id || !name){
+            return;
+        }
+        var tags = this.state.tags;
+        tags = tags.slice(0);
+        tags.unshift({id : id, name : name});
+        this.setState({tags:[]});
+        this.setState({tags : tags});
+    },
+    tagDeleted : function tagDeleted(entry){
+        var tags = this.state.tags.slice(0);
+        var index = tags.indexOf(entry);
+        $(this.refs.addTagLi).hide();
+        if(index != -1){
+            tags.splice(index, 1);
+            this.setState({tags:[]});
+            this.setState({tags: tags});
+        }
     },
     render : function render(){
         var entries = [];
         for(var i in this.state.tags){
             entries.push((
                 <li key={"tag_" + i}>
-                    <EditableDeletable deleteUrl="/api/tags/delete" updateUrl="/api/tags/edit" entry={this.state.tags[i]} />
+                    <EditableDeletable stateId={i} onDelete={this.tagDeleted} deleteUrl="/api/tags/delete" updateUrl="/api/tags/edit" entry={this.state.tags[i]} />
                 </li>
             ));
         }
+        var emptyEntry = {
+            id : "new", 
+            name : ""
+        };
         return (
             <ul className="tagList">
+                <li ref="addTagLi" key="tags_add">
+                    <EditableDeletable ref="addTag" updateUrl="/api/tags/add" onEditComplete={this.addComplete} entry={emptyEntry}/>
+                </li>
                 {entries}
             </ul>
         );
