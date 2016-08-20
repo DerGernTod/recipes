@@ -1,3 +1,4 @@
+import React from 'react';
 var RecipePage = React.createClass({
     render : function render(){
         //todo: check if recipe with id exists, else redirect to not found
@@ -6,3 +7,4 @@ var RecipePage = React.createClass({
         );
     }
 });
+export default RecipePage;

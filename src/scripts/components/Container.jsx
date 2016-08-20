@@ -1,5 +1,8 @@
+import React from 'react';
+import {withRouter, State, Navigation, Link} from 'react-router';
+import AuthActions from '../actions/AuthActions.jsx';
+import {AdminNavBar, NavBar} from './NavBar.jsx';
 var Container = React.createClass({
-
     render: function render(){
         return (
             <div>
@@ -18,10 +21,10 @@ var Container = React.createClass({
     }
 });
 
-var AdminContainer = ReactRouter.withRouter(React.createClass({
+var AdminContainer = withRouter(React.createClass({
     mixins : [
-        ReactRouter.State,
-        ReactRouter.Navigation
+        State,
+        Navigation
     ],
     logout : function logout(){
         AuthActions.logout();
@@ -42,3 +45,4 @@ var AdminContainer = ReactRouter.withRouter(React.createClass({
         );
     }
 }));
+export {Container, AdminContainer};

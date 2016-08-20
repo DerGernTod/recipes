@@ -1,7 +1,12 @@
-var LoginPage = ReactRouter.withRouter(React.createClass({
+import React from 'react';
+import {withRouter, State, Navigation} from 'react-router';
+import Reflux from 'reflux';
+import AuthStore from '../stores/AuthStore.jsx';
+import AuthActions from '../actions/AuthActions.jsx';
+var LoginPage = withRouter(React.createClass({
     mixins: [
-        ReactRouter.State,
-        ReactRouter.Navigation,
+        State,
+        Navigation,
         Reflux.connect(AuthStore, "loginStatus"),
         Reflux.ListenerMixin
     ],
@@ -51,3 +56,4 @@ var LoginPage = ReactRouter.withRouter(React.createClass({
         )
     }
 }));
+export default LoginPage;

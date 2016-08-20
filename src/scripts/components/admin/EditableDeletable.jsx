@@ -1,3 +1,5 @@
+import React from 'react';
+import $ from 'jquery';
 var EditableDeletable = React.createClass({
     componentDidMount : function componentDidMount(){
         this.previousName = this.props.entry.name;
@@ -107,3 +109,4 @@ var EditableDeletable = React.createClass({
         );
     }
 });
+export default EditableDeletable;

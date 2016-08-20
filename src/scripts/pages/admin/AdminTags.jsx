@@ -1,3 +1,8 @@
+import React from 'react';
+import {withRouter, State, Navigation} from 'react-router';
+import $ from 'jquery';
+import EditableDeletable from '../../components/admin/EditableDeletable.jsx';
+import {AdminSearch} from '../../components/Search.jsx';
 var AdminTagsPage = React.createClass({
     componentDidMount : function componentDidMount(){
 
@@ -55,11 +60,11 @@ var AdminTagsSearchPage = React.createClass({
         );
     }
 });
-var AdminTagsLatestPage = ReactRouter.withRouter(React.createClass({
+var AdminTagsLatestPage = withRouter(React.createClass({
     //TODO: store input elements in this component and handle inputmode/textmode there. less jquery!
     mixins : [
-        ReactRouter.State,
-        ReactRouter.Navigation
+        State,
+        Navigation
     ],
     getInitialState : function getInitialState(){
         return { tags : []};
@@ -124,3 +129,4 @@ var AdminTagsLatestPage = ReactRouter.withRouter(React.createClass({
         );
     }
 }));
+export {AdminTagsIdPage, AdminTagsLatestPage, AdminTagsPage, AdminTagsSearchPage};

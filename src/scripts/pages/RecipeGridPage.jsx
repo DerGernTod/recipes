@@ -1,3 +1,5 @@
+import React from 'react';
+import RecipeGridView from '../components/RecipeComponents.jsx';
 var RecipeGridPage = React.createClass({
     getInitialState: function getInitialState(){
         return { 
@@ -30,7 +32,7 @@ var RecipeGridPage = React.createClass({
         );
     }
 });
-
+export default RecipeGridPage;
 var MOCK_RECIPES = [
     {
         id: 1,

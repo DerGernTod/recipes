@@ -1,3 +1,4 @@
+import React from 'react';
 var RecipeGridView = React.createClass({
     render : function render(){
         var widthImgStyle = {
@@ -21,3 +22,4 @@ var RecipeGridView = React.createClass({
         );
     }
 });
+export default RecipeGridView;

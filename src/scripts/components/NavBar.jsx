@@ -1,3 +1,5 @@
+import React from 'react';
+import {Link} from 'react-router';
 var NavBar = React.createClass({
     render: function render(){
         return (
@@ -20,3 +22,4 @@ var AdminNavBar = React.createClass({
         );
     }
 });
+export {NavBar, AdminNavBar};

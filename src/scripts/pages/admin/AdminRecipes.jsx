@@ -1,3 +1,5 @@
+import React from 'react';
+import {AdminSearch} from '../../components/Search.jsx';
 var AdminRecipesPage = React.createClass({
     render : function render(){
         return (
@@ -85,3 +87,4 @@ var AdminRecipesIdPage = React.createClass({
         );
     }
 });
+export {AdminRecipesIdPage, AdminRecipesLatestPage, AdminRecipesPage, AdminRecipesSearchPage};

@@ -13,6 +13,7 @@ const sourcemaps = require('gulp-sourcemaps');
 const minifyCSS = require('gulp-minify-css');
 const couch = require("./gulptasks/couch");
 const server = require('./gulptasks/serverTask');
+const webpack = require('gulp-webpack');
 gulp.task('default', ['clean'], function(){
     return gulp.start('build');
 });
@@ -51,14 +52,8 @@ gulp.task('less', function(){
 
 
 gulp.task('scripts', function(){
-    return gulp.src([
-        'src/scripts/actions/*.js',
-        'src/scripts/stores/*.js',
-        'src/scripts/pages/**/*.js',
-        'src/scripts/components/**/*.js',
-        'src/scripts/App.js'
-    ])
-        .pipe(concat('scripts.min.js'))
+    return gulp.src(['src/scripts/App.jsx'])
+        .pipe(webpack(require('./webpack.config.js')))
         .pipe(gulp.dest('public/js'))
         .pipe(browserSync.reload({ stream: true }));
 });

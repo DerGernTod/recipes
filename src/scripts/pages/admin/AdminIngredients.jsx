@@ -1,3 +1,5 @@
+import React from 'react';
+import {AdminSearch} from '../../components/Search.jsx';
 var AdminIngredientsPage = React.createClass({
     render : function render(){
         return (
@@ -35,3 +37,4 @@ var AdminIngredientsIdPage = React.createClass({
         );
     }
 });
+export {AdminIngredientsIdPage, AdminIngredientsLatestPage, AdminIngredientsPage, AdminIngredientsSearchPage};

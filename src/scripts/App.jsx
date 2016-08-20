@@ -1,8 +1,19 @@
-var Route = ReactRouter.Route;
-var IndexRoute = ReactRouter.IndexRoute;
-var Link = ReactRouter.Link;
-var browserHistory = ReactRouter.browserHistory;
-var Router = ReactRouter.Router;
+import ReactDOM from 'react-dom';
+import React from 'react';
+import AuthStore from './stores/AuthStore.jsx';
+import {Route, IndexRoute, Link, browserHistory, Router} from 'react-router';
+import LoginPage from './pages/LoginPage.jsx';
+import {Container, AdminContainer} from './components/Container.jsx';
+import {AdminRecipesIdPage, AdminRecipesLatestPage, AdminRecipesPage, AdminRecipesSearchPage} from './pages/admin/AdminRecipes.jsx';
+import {AdminIngredientsIdPage, AdminIngredientsLatestPage, AdminIngredientsPage, AdminIngredientsSearchPage} from './pages/admin/AdminIngredients.jsx';
+import {AdminTagsIdPage, AdminTagsLatestPage, AdminTagsPage, AdminTagsSearchPage} from './pages/admin/AdminTags.jsx';
+import RecipePage from './pages/RecipePage.jsx';
+import RecipeGridPage from './pages/RecipeGridPage.jsx';
+import RecipeListPage from './pages/RecipeListPage.jsx';
+import RandomRecipePage from './pages/RandomRecipePage.jsx';
+import IngredientSearchPage from './pages/IngredientSearchPage.jsx';
+import NotFoundPage from './pages/NotFoundPage.jsx';
+
 function requireAuth(nextState, replace){
     if(!AuthStore.loggedIn()){
         replace({

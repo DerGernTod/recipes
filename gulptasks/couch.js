@@ -92,7 +92,8 @@ module.exports = {
                     db.save(data.id, res.rev, res,  (err2, res2) => {
                         callback({
                             success : !(err2 && err),
-                            message : err + ", " + err2
+                            message : err + ", " + err2,
+                            response : res
                         });
                     });
                 }

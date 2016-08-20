@@ -1,3 +1,5 @@
+import Reflux from 'reflux';
+import AuthActions from '../actions/AuthActions.jsx';
 var AuthStore = Reflux.createStore({
     listenables : AuthActions,
     init : function init(){
@@ -59,3 +61,4 @@ var AuthStore = Reflux.createStore({
         return JSON.parse(atob(this.jwt.split('.')[1]));
     }
 });
+export default AuthStore;

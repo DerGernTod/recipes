@@ -1,3 +1,5 @@
+import React from 'react';
+import CreateTagComponent from './CreateTagComponent.jsx';
 var RecipeForm = React.createClass({
     render : function render(){
         return (
@@ -12,3 +14,4 @@ var RecipeForm = React.createClass({
         );
     }
 })
+export default RecipeForm;
