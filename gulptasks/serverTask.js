@@ -3,6 +3,7 @@ const fs = require('fs');
 const bodyParser = require('body-parser');
 const couch = require('./couch');
 const tags = require('../api/tags');
+const ingredients = require('../api/ingredients');
 const path = require('path');
 var server;
 function serverTask(){
@@ -34,11 +35,18 @@ function serverTask(){
         res.send({successful: true});
     }
 
-    app.post('/api/tags/add', tags.addTag);
-    app.get('/api/getTag', tags.getTag);
-    app.post('/api/tags/edit', tags.editTag);
-    app.get('/api/tags/latest', tags.latestTags);
-    app.post('/api/tags/delete', tags.deleteTag);
+    app.get('/api/tags/get', tags.get);
+    
+    app.post('/api/tags/add', tags.add);
+    app.post('/api/tags/edit', tags.edit);
+    app.get('/api/tags/latest', tags.latest);
+    app.post('/api/tags/delete', tags.remove);
+
+    app.post('/api/ingredients/add', ingredients.add);
+    app.post('/api/ingredients/edit', ingredients.edit);
+    app.get('/api/ingredients/latest', ingredients.latest);
+    app.post('/api/ingredients/delete', ingredients.remove);
+
     app.post('/api/comments', comments);
     app.post('/api/adminlogin', adminLogin);
     app.get('/api/comments', comments);

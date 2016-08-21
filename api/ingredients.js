@@ -3,14 +3,14 @@ module.exports = {
     
     add: function (req, res){
         var data = req.body;
-        db.view('recipes/tags', {key : data.name}, (err, doc) => {
+        db.view('recipes/ingredients', {key : data.name}, (err, doc) => {
             if(err || doc.length){
-                res.send({success : false, message : "Tag '" + data.name + "' existiert bereits!"})
+                res.send({success : false, message : "Zutat '" + data.name + "' existiert bereits!"})
             }else{
                 db.save({
-                    doctype : "Tag",
+                    doctype : "Ingredient",
                     created : Date.now(),
-                    tagName : data.name
+                    ingredientName : data.name
                 }, (err, result) => {
                     res.send({success : !err, message : err, response : result});
                 });
@@ -18,7 +18,7 @@ module.exports = {
         });
     },
     latest: function (req, res){
-        db.view('recipes/tagsLatest', {}, (err, doc) => {
+        db.view('recipes/ingredientsLatest', {}, (err, doc) => {
             res.send({
                 success : !err,
                 message : err,
@@ -38,11 +38,11 @@ module.exports = {
     edit: function (req, res){
         var data = req.body;
         db.get(data.id, (err, result) => {
-            db.view('recipes/tags', {key : data.name}, (err, doc) => {
+            db.view('recipes/ingredients', {key : data.name}, (err, doc) => {
                 if(err || doc.length){
-                    res.send({success : false, message : "Tag '" + data.name + "' existiert bereits!"});
+                    res.send({success : false, message : "Zutat '" + data.name + "' existiert bereits!"});
                 }else{
-                    result.tagName = data.name;
+                    result.ingredientName = data.name;
                     result.updated = Date.now();
                     db.save(data.id, result.rev, result,  (err2, res2) => {
                         res.send({

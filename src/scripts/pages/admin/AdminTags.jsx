@@ -8,45 +8,15 @@ var AdminTagsPage = React.createClass({
 
     },
     addTag : function addTag(){
-        $('.tagList li:first-child div.text').text("");
-        $('.tagList li:first-child').show();
-        $('.tagList li:first-child div.text').focus();
+        $('.simpleList li:first-child div.text').text("");
+        $('.simpleList li:first-child').show();
+        $('.simpleList li:first-child div.text').focus();
     },
     render : function render(){
         return (
             <div className="adminContainer center-block">
                 <AdminSearch focus="true" createFunction={this.addTag} />
                 {this.props.children}
-            </div>
-        );
-    }
-});
-var AdminTagsIdPage = React.createClass({
-    componentDidMount : function componentDidMount(){
-        $(this.refs.tagNameInput).focus();
-    },
-    render : function render(){
-        var formData = {};
-        if(this.props.params.tagId.toLowerCase() == "new"){
-            formData.test = "leeeeeeeer";
-        }else{
-            //todo: search db for id, if unavailable show error
-            var dbResult = { valid : false }
-            if(!dbResult.valid){
-                return (
-                    <div>error, tag not found!</div>
-                );
-            }
-        }
-
-        return (
-            
-            <div>
-                AdminTagsIdPage {formData.test}
-                <form onSubmit={this.onFormSubmit}>
-                    <input className="form-control" ref="tagNameInput" type="text" placeholder="Tag" />
-                    <input className="btn btn-default center-block" ref="submitButton" type="submit" value="Hinzufügen" />
-                </form>
             </div>
         );
     }
@@ -70,18 +40,24 @@ var AdminTagsLatestPage = withRouter(React.createClass({
         return { tags : []};
     },
     componentDidMount : function componentDidMount(){
-        $.get("/api/tags/latest").done((data => {
-            var newObj = [];
-            for(var i in data){
-                if(data.hasOwnProperty(i)){
-                    var curObj = data[i];
-                    newObj[i] = {
-                        id : curObj.id,
-                        name : curObj.value.tagName
-                    };      
+        
+        $.get("/api/tags/latest").done((response => {
+            if(response.success){
+                var newObj = [];
+                var data = response.response;
+                for(var i in data){
+                    if(data.hasOwnProperty(i)){
+                        var curObj = data[i];
+                        newObj[i] = {
+                            id : curObj.id,
+                            name : curObj.value.tagName
+                        };      
+                    }
                 }
+                this.setState({tags : newObj});
+            }else{
+                console.log("Error getting latest tags: ", response);
             }
-            this.setState({tags : newObj});
         }).bind(this));
         $(this.refs.addTagLi).hide();
     },
@@ -120,7 +96,7 @@ var AdminTagsLatestPage = withRouter(React.createClass({
             name : ""
         };
         return (
-            <ul className="tagList">
+            <ul className="simpleList">
                 <li ref="addTagLi" key="tags_add">
                     <EditableDeletable ref="addTag" updateUrl="/api/tags/add" onEditComplete={this.addComplete} entry={emptyEntry}/>
                 </li>
@@ -129,4 +105,4 @@ var AdminTagsLatestPage = withRouter(React.createClass({
         );
     }
 }));
-export {AdminTagsIdPage, AdminTagsLatestPage, AdminTagsPage, AdminTagsSearchPage};
+export {AdminTagsLatestPage, AdminTagsPage, AdminTagsSearchPage};

@@ -27,12 +27,29 @@ function initDesignDocuments(){
                         emit(-(doc.updated || doc.created), doc);
                     }
                 }).toString()
+            },
+            ingredients: {
+                map: (function (doc) {
+                    if (doc.doctype == "Ingredient"){
+                        emit(doc.ingredientName, doc);
+                    }
+                }).toString()
+            },
+            ingredientsLatest: {
+                map: (function(doc){
+                    if (doc.doctype == "Ingredient"){
+                        emit(-(doc.updated || doc.created), doc);
+                    }
+                }).toString()
             }
         }
     });
 }
 
 module.exports = {
+    getDataBase: function(){
+        return db;
+    },
     initDatabase: function initDatabase(){
         db.exists(function checkDbExistance(err, exists){
             if(err){
@@ -53,56 +70,6 @@ module.exports = {
                 }
             }
         });
-    },
-    addTag: function addTag(data, callback){
-        db.view('recipes/tags', {key : data.name}, (err, doc) => {
-            if(err || doc.length){
-                callback({success : false, message : "Tag '" + data.name + "' existiert bereits!"})
-            }else{
-                db.save({
-                    doctype : "Tag",
-                    created : data.timestamp,
-                    tagName : data.name
-                }, (err, res) => {
-                    callback({success : !err, message : err, response : res});
-                });
-            }
-        });
-    },
-    viewTags: function viewTags(callback){
-        db.view('recipes/tagsLatest', {}, (err, doc) => {
-            callback(doc);
-        });
-    },
-    removeTag: function removeTag(data, callback){
-        db.remove(data.id, (err, res) => {
-            callback({
-                success : !err,
-                message : err
-            });
-        });
-    },
-    editTag: function editTag(data, callback){
-        db.get(data.id, (err, res) => {
-            db.view('recipes/tags', {key : data.name}, (err, doc) => {
-                if(err || doc.length){
-                    callback({success : false, message : "Tag '" + data.name + "' existiert bereits!"});
-                }else{
-                    res.tagName = data.name;
-                    db.save(data.id, res.rev, res,  (err2, res2) => {
-                        callback({
-                            success : !(err2 && err),
-                            message : err + ", " + err2,
-                            response : res
-                        });
-                    });
-                }
-            });
-        });
-        
-    },
-    getTag: function getTag(data, callback){
-
     },
     /**
      * callback {function} takes an array argument which is passed to the callback

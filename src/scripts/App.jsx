@@ -5,8 +5,8 @@ import {Route, IndexRoute, Link, browserHistory, Router} from 'react-router';
 import LoginPage from './pages/LoginPage.jsx';
 import {Container, AdminContainer} from './components/Container.jsx';
 import {AdminRecipesIdPage, AdminRecipesLatestPage, AdminRecipesPage, AdminRecipesSearchPage} from './pages/admin/AdminRecipes.jsx';
-import {AdminIngredientsIdPage, AdminIngredientsLatestPage, AdminIngredientsPage, AdminIngredientsSearchPage} from './pages/admin/AdminIngredients.jsx';
-import {AdminTagsIdPage, AdminTagsLatestPage, AdminTagsPage, AdminTagsSearchPage} from './pages/admin/AdminTags.jsx';
+import {AdminIngredientsLatestPage, AdminIngredientsPage, AdminIngredientsSearchPage} from './pages/admin/AdminIngredients.jsx';
+import {AdminTagsLatestPage, AdminTagsPage, AdminTagsSearchPage} from './pages/admin/AdminTags.jsx';
 import RecipePage from './pages/RecipePage.jsx';
 import RecipeGridPage from './pages/RecipeGridPage.jsx';
 import RecipeListPage from './pages/RecipeListPage.jsx';
@@ -38,13 +38,11 @@ var routes = (
                 <IndexRoute component={AdminIngredientsLatestPage} />
                 <Route path="/admin/ingredients/latest" component={AdminIngredientsLatestPage}/>
                 <Route path="/admin/ingredients/search/:keyword" component={AdminIngredientsSearchPage}/>
-                <Route path="/admin/ingredients/id/:ingredientId" component={AdminIngredientsIdPage}/>
             </Route>
             <Route path="/admin/tags" component={AdminTagsPage}>
                 <IndexRoute component={AdminTagsLatestPage} />
                 <Route path="/admin/tags/latest" component={AdminTagsLatestPage}/>
                 <Route path="/admin/tags/search/:keyword" component={AdminTagsSearchPage}/>
-                <Route path="/admin/tags/id/:tagId" component={AdminTagsIdPage}/>
             </Route>
             <Route path="/admin/*" component={NotFoundPage}/>
         </Route>
